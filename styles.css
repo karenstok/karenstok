@@ -1293,3 +1293,639 @@ body {
         font-size: 28px;
     }
 }
+/* ==================== ADDITIONAL STYLES ==================== */
+
+/* App Header */
+.app-header {
+    position: sticky;
+    top: 0;
+    background: white;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    z-index: 100;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.app-header h1 {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* Home Content */
+.home-content {
+    padding-bottom: 80px;
+}
+
+/* Game Selection Tabs */
+.game-selection-tabs {
+    display: flex;
+    gap: 12px;
+    padding: 16px 20px;
+    background: var(--bg-gray);
+}
+
+.game-tab {
+    flex: 1;
+    background: white;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.game-tab:hover {
+    border-color: var(--primary);
+    transform: translateY(-2px);
+}
+
+.game-tab.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+}
+
+.game-tab-icon {
+    font-size: 32px;
+}
+
+.game-tab span:last-child {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Items Container */
+.items-container {
+    padding: 0 20px 20px;
+}
+
+/* Bottom Navigation */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-around;
+    padding: 8px 0;
+    z-index: 1000;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 8px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.nav-item.active {
+    color: var(--primary);
+}
+
+.nav-item .material-symbols-outlined {
+    font-size: 24px;
+}
+
+.nav-item span:last-child {
+    font-size: 12px;
+    font-weight: 500;
+}
+
+/* Item Modal */
+.item-modal-content {
+    max-width: 500px;
+}
+
+.item-detail-preview {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.item-icon-large {
+    font-size: 64px;
+    margin-bottom: 12px;
+}
+
+.item-detail-preview p {
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.quantity-selector {
+    background: var(--bg-gray);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.quantity-selector h3 {
+    font-size: 16px;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.quantity-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    border: 2px solid var(--primary);
+    background: white;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.quantity-btn:hover {
+    background: var(--primary);
+    color: white;
+    transform: scale(1.05);
+}
+
+.quantity-btn:active {
+    transform: scale(0.95);
+}
+
+.quantity-display {
+    text-align: center;
+    min-width: 100px;
+}
+
+.quantity-display input {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text-primary);
+    border: none;
+    text-align: center;
+    width: 100%;
+    background: transparent;
+}
+
+.quantity-display input:focus {
+    outline: none;
+}
+
+.quantity-label {
+    display: block;
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+}
+
+.price-summary-modal {
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    border: 1px solid var(--border);
+}
+
+.price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.price-row:last-child {
+    margin-bottom: 0;
+}
+
+.price-row span {
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.price-row strong {
+    color: var(--text-primary);
+    font-size: 15px;
+}
+
+.price-row.total {
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    margin-top: 12px;
+}
+
+.price-row.total strong {
+    font-size: 18px;
+}
+
+.btn-full {
+    width: 100%;
+}
+
+/* Payment Content */
+.payment-content {
+    padding: 20px 20px 100px;
+}
+
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.empty-state .material-symbols-outlined {
+    font-size: 80px;
+    color: var(--text-secondary);
+    opacity: 0.3;
+    margin-bottom: 20px;
+}
+
+.empty-state h3 {
+    font-size: 20px;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.empty-state p {
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+}
+
+.order-summary-card {
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 8px var(--shadow);
+}
+
+.order-summary-card h3 {
+    font-size: 16px;
+    margin-bottom: 12px;
+}
+
+.summary-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.summary-row span {
+    color: var(--text-secondary);
+}
+
+.summary-row strong {
+    color: var(--text-primary);
+}
+
+.summary-row.total {
+    font-size: 16px;
+    padding-top: 12px;
+    margin-top: 12px;
+}
+
+.summary-row .price {
+    color: var(--success);
+    font-weight: 700;
+}
+
+.buyer-info-card {
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px var(--shadow);
+}
+
+.buyer-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.buyer-row > .material-symbols-outlined:first-child {
+    color: var(--primary);
+    font-size: 24px;
+}
+
+.buyer-detail {
+    flex: 1;
+}
+
+.buyer-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+}
+
+.buyer-value {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.buyer-row .check-icon {
+    color: var(--success);
+    font-size: 24px;
+}
+
+/* QRIS Card */
+.qris-card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 2px 8px var(--shadow);
+    margin-bottom: 20px;
+}
+
+.qris-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+}
+
+.qris-logo {
+    width: 60px;
+    height: 60px;
+    background: var(--bg-gray);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.qris-info {
+    flex: 1;
+}
+
+.qris-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.qris-subtitle {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.qris-amount {
+    background: var(--primary-light);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.amount-label {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+.amount-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.qris-code-container {
+    background: var(--bg-gray);
+    border-radius: 12px;
+    padding: 40px 20px;
+    margin-bottom: 24px;
+}
+
+.qris-placeholder {
+    text-align: center;
+}
+
+.qris-placeholder .material-symbols-outlined {
+    font-size: 120px;
+    color: var(--text-secondary);
+    opacity: 0.3;
+    margin-bottom: 16px;
+}
+
+.qris-placeholder p {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.qris-placeholder small {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.qris-apps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.qris-app-item {
+    background: var(--bg-gray);
+    border-radius: 8px;
+    padding: 8px 4px;
+    font-size: 11px;
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+.payment-timer {
+    background: rgba(255, 152, 0, 0.1);
+    border: 1px solid var(--warning);
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.payment-timer .material-symbols-outlined {
+    color: var(--warning);
+    font-size: 20px;
+}
+
+/* Success Modal */
+.success-modal-content {
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.success-icon {
+    width: 120px;
+    height: 120px;
+    background: #C8E6C9;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+}
+
+.success-icon .material-symbols-outlined {
+    color: var(--success);
+    font-size: 100px;
+}
+
+.success-modal-content h1 {
+    font-size: 24px;
+    margin-bottom: 12px;
+}
+
+.success-modal-content p {
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+.process-info {
+    background: var(--primary-light);
+    border: 1px solid var(--primary);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 24px 0;
+}
+
+.process-info .material-symbols-outlined {
+    color: var(--primary);
+    font-size: 32px;
+    margin-bottom: 12px;
+}
+
+.process-info h3 {
+    color: var(--primary-dark);
+    margin-bottom: 8px;
+}
+
+.process-info p {
+    color: var(--primary-dark);
+    font-size: 14px;
+}
+
+/* Profile Content New */
+.profile-content-new {
+    padding: 20px 20px 100px;
+}
+
+.profile-header-card {
+    background: white;
+    border-radius: 16px;
+    padding: 32px 20px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 8px var(--shadow);
+    text-align: center;
+}
+
+.profile-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid var(--primary);
+    margin-bottom: 16px;
+    box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+}
+
+.profile-header-card h2 {
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+.profile-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--primary-light);
+    color: var(--primary);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    margin-bottom: 8px;
+}
+
+.profile-badge .material-symbols-outlined {
+    font-size: 16px;
+}
+
+.profile-id {
+    background: var(--bg-gray);
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-family: monospace;
+    font-size: 12px;
+    color: var(--text-secondary);
+    display: inline-block;
+}
+
+/* Item Card Enhancement */
+.item-icon-wrapper {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 12px;
+    background: linear-gradient(135deg, rgba(33, 150, 243, 0.15) 0%, rgba(33, 150, 243, 0.05) 100%);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.item-icon {
+    font-size: 36px;
+}
+
+.item-desc {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin: 8px 0;
+    min-height: 36px;
+    line-height: 1.4;
+}
+
+.per-item {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+}
+
+@media (max-width: 480px) {
+    .qris-apps {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .game-selection-tabs {
+        flex-direction: column;
+    }
+    
+    .game-tab {
+        flex-direction: row;
+        justify-content: center;
+    }
+}

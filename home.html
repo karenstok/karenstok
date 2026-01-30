@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Item - Toko Item Game</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-header">
+        <h1>Pilih Item</h1>
+    </div>
+
+    <div class="home-content">
+        <!-- Game Selection Tabs -->
+        <div class="game-selection-tabs">
+            <button class="game-tab active" data-game="escape-braintrot">
+                <span class="game-tab-icon">🎮</span>
+                <span>Escape Braintrot</span>
+            </button>
+            <button class="game-tab" data-game="steal-braintrot">
+                <span class="game-tab-icon">🕹️</span>
+                <span>Steal a Braintrot</span>
+            </button>
+        </div>
+
+        <!-- Item Grid -->
+        <div class="items-container">
+            <div class="package-grid" id="itemGrid"></div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <a href="home.html" class="nav-item active">
+            <span class="material-symbols-outlined">shopping_bag</span>
+            <span>Item</span>
+        </a>
+        <a href="pembayaran.html" class="nav-item">
+            <span class="material-symbols-outlined">receipt</span>
+            <span>Pembayaran</span>
+        </a>
+        <a href="profil.html" class="nav-item">
+            <span class="material-symbols-outlined">person</span>
+            <span>Profil</span>
+        </a>
+    </div>
+
+    <!-- Item Detail Modal -->
+    <div id="itemModal" class="modal">
+        <div class="modal-content item-modal-content">
+            <div class="modal-header">
+                <h2 id="modalItemName"></h2>
+                <button class="modal-close" onclick="closeItemModal()">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="item-detail-preview">
+                    <div class="item-icon-large" id="modalItemIcon"></div>
+                    <p id="modalItemDesc"></p>
+                </div>
+
+                <div class="quantity-selector">
+                    <h3>Jumlah Item</h3>
+                    <div class="quantity-controls">
+                        <button class="quantity-btn" onclick="decreaseQuantity()">
+                            <span class="material-symbols-outlined">remove</span>
+                        </button>
+                        <div class="quantity-display">
+                            <input type="number" id="quantityInput" value="1" min="1" max="999" readonly>
+                            <span class="quantity-label">Item</span>
+                        </div>
+                        <button class="quantity-btn" onclick="increaseQuantity()">
+                            <span class="material-symbols-outlined">add</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="price-summary-modal">
+                    <div class="price-row">
+                        <span>Harga per Item</span>
+                        <strong id="modalPricePerItem"></strong>
+                    </div>
+                    <div class="price-row">
+                        <span>Jumlah</span>
+                        <strong id="modalQuantity">1x</strong>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="price-row total">
+                        <strong>Total Harga</strong>
+                        <strong class="price" id="modalTotalPrice"></strong>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-primary btn-full" onclick="checkoutItem()">Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        const username = localStorage.getItem('roblox_username');
+        if (!username) {
+            window.location.href = 'login.html';
+        }
+
+        let selectedGame = 'escape-braintrot';
+        let selectedItem = null;
+        let itemQuantity = 1;
+
+        const GAME_ITEMS = {
+            'escape-braintrot': [
+                { 
+                    id: 1, 
+                    name: "ESOK SEKOLAH MUTASI HACKER 5QN", 
+                    iconImage: "esok_sekolah.jpeg", 
+                    price: 5000, 
+                    description: "Pedang legendaris dengan kekuatan luar biasa" 
+                },
+            ],
+            'steal-braintrot': [
+                { id: 11, name: "Stealth Suit", iconImage: "stealth-suit.png", price: 20000, description: "Baju untuk bergerak tanpa suara" },
+                { id: 12, name: "Lockpick Kit", iconImage: "lockpick.png", price: 8000, description: "Alat untuk membuka kunci pintu" },
+                { id: 13, name: "Night Vision Goggles", iconImage: "night-vision.png", price: 15000, description: "Kacamata untuk melihat dalam gelap" },
+                { id: 14, name: "Grappling Hook", iconImage: "grappling-hook.png", price: 12000, description: "Hook untuk memanjat gedung tinggi" },
+                { id: 15, name: "Smoke Bomb", iconImage: "smoke-bomb.png", price: 6000, description: "Bom asap untuk kabur dari kejaran" },
+                { id: 16, name: "Master Key", iconImage: "master-key.png", price: 25000, description: "Kunci master yang bisa buka semua pintu" },
+                { id: 17, name: "Silent Shoes", iconImage: "silent-shoes.png", price: 10000, description: "Sepatu tanpa suara saat berjalan" },
+                { id: 18, name: "Fake ID", iconImage: "fake-id.png", price: 7000, description: "ID palsu untuk menyamar" },
+                { id: 19, name: "Hacking Device", iconImage: "hacking-device.png", price: 30000, description: "Alat untuk hack sistem keamanan" },
+                { id: 20, name: "Escape Rope", iconImage: "escape-rope.png", price: 9000, description: "Tali untuk melarikan diri dengan cepat" }
+            ]
+        };
+
+        function formatPrice(price) {
+            return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        }
+
+        function renderItems() {
+            const grid = document.getElementById('itemGrid');
+            const items = GAME_ITEMS[selectedGame];
+            
+            grid.innerHTML = items.map(item => `
+                <div class="package-card" onclick="openItemModal(${item.id})">
+                    <div class="item-icon-wrapper">
+                        <div class="item-icon">
+                            <img src="${item.iconImage}" alt="${item.name}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+                        </div>
+                    </div>
+                    <h4>${item.name}</h4>
+                    <p class="item-desc">${item.description}</p>
+                    <div class="price">Rp ${formatPrice(item.price)}</div>
+                    <div class="per-item">per item</div>
+                </div>
+            `).join('');
+        }
+
+        function openItemModal(itemId) {
+            const allItems = [...GAME_ITEMS['escape-braintrot'], ...GAME_ITEMS['steal-braintrot']];
+            selectedItem = allItems.find(item => item.id === itemId);
+            itemQuantity = 1;
+            
+            if (selectedItem) {
+                document.getElementById('modalItemName').textContent = selectedItem.name;
+                document.getElementById('modalItemIcon').innerHTML = `<img src="${selectedItem.iconImage}" alt="${selectedItem.name}" style="width: 100px; height: 100px; object-fit: cover; border-radius: 12px;">`;
+                document.getElementById('modalItemDesc').textContent = selectedItem.description;
+                document.getElementById('quantityInput').value = 1;
+                updateModalPrice();
+                document.getElementById('itemModal').classList.add('show');
+            }
+        }
+
+        function closeItemModal() {
+            document.getElementById('itemModal').classList.remove('show');
+        }
+
+        function increaseQuantity() {
+            if (itemQuantity < 999) {
+                itemQuantity++;
+                document.getElementById('quantityInput').value = itemQuantity;
+                updateModalPrice();
+            }
+        }
+
+        function decreaseQuantity() {
+            if (itemQuantity > 1) {
+                itemQuantity--;
+                document.getElementById('quantityInput').value = itemQuantity;
+                updateModalPrice();
+            }
+        }
+
+        function updateModalPrice() {
+            const pricePerItem = selectedItem.price;
+            const totalPrice = pricePerItem * itemQuantity;
+            
+            document.getElementById('modalPricePerItem').textContent = `Rp ${formatPrice(pricePerItem)}`;
+            document.getElementById('modalQuantity').textContent = `${itemQuantity}x`;
+            document.getElementById('modalTotalPrice').textContent = `Rp ${formatPrice(totalPrice)}`;
+        }
+
+        function checkoutItem() {
+            const gameName = selectedGame === 'escape-braintrot' ? 'Escape Braintrot' : 'Steal a Braintrot';
+            
+            const order = {
+                game: gameName,
+                gameKey: selectedGame,
+                item: selectedItem,
+                quantity: itemQuantity,
+                totalPrice: selectedItem.price * itemQuantity,
+                username: localStorage.getItem('roblox_username')
+            };
+            
+            localStorage.setItem('current_order', JSON.stringify(order));
+            window.location.href = 'pembayaran.html';
+        }
+
+        // Game tabs
+        document.querySelectorAll('.game-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.game-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                selectedGame = this.dataset.game;
+                renderItems();
+            });
+        });
+
+        // Initialize
+        renderItems();
+    </script>
+</body>
+</html>

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pembayaran - Toko Item Game</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-header">
+        <h1>Pembayaran</h1>
+    </div>
+
+    <div class="payment-content">
+        <div id="emptyPayment" class="empty-state">
+            <span class="material-symbols-outlined">receipt_long</span>
+            <h3>Belum Ada Pesanan</h3>
+            <p>Pilih item yang ingin kamu beli terlebih dahulu</p>
+            <a href="home.html" class="btn-primary">Pilih Item</a>
+        </div>
+
+        <div id="activeOrder" style="display: none;">
+            <!-- Order Summary -->
+            <div class="order-summary-card">
+                <h3>Ringkasan Pesanan</h3>
+                <div class="divider"></div>
+                <div class="summary-row">
+                    <span>Game</span>
+                    <strong id="orderGame"></strong>
+                </div>
+                <div class="summary-row">
+                    <span>Item</span>
+                    <strong id="orderItem"></strong>
+                </div>
+                <div class="summary-row">
+                    <span>Jumlah</span>
+                    <strong id="orderQuantity"></strong>
+                </div>
+                <div class="summary-row">
+                    <span>Harga per Item</span>
+                    <strong id="orderPricePerItem"></strong>
+                </div>
+                <div class="divider"></div>
+                <div class="summary-row total">
+                    <strong>Total Harga</strong>
+                    <strong class="price" id="orderTotalPrice"></strong>
+                </div>
+            </div>
+
+            <!-- Buyer Info -->
+            <h3 class="section-title">Data Pembeli</h3>
+            <div class="buyer-info-card">
+                <div class="buyer-row">
+                    <span class="material-symbols-outlined">person</span>
+                    <div class="buyer-detail">
+                        <div class="buyer-label">Username Roblox</div>
+                        <div class="buyer-value" id="buyerUsername"></div>
+                    </div>
+                    <span class="material-symbols-outlined check-icon">check_circle</span>
+                </div>
+            </div>
+
+            <div class="info-box success">
+                <span class="material-symbols-outlined">info</span>
+                <span>Username otomatis terisi dari akun yang login</span>
+            </div>
+
+            <!-- QRIS Payment -->
+            <h3 class="section-title">Pembayaran QRIS</h3>
+            <div class="qris-card">
+                <div class="qris-header">
+                    <div class="qris-logo">
+                        <img src="1769742023018_image.png" alt="QRIS Logo" style="height: 40px;">
+                    </div>
+                    <div class="qris-info">
+                        <div class="qris-title">Scan QRIS untuk Bayar</div>
+                        <div class="qris-subtitle">Semua E-Wallet & Mobile Banking</div>
+                    </div>
+                </div>
+
+                <div class="qris-amount">
+                    <div class="amount-label">Total Pembayaran</div>
+                    <div class="amount-value" id="qrisAmount">Rp 0</div>
+                </div>
+
+                <div class="qris-code-container">
+                    <img src="qris_dana.jpeg" alt="QRIS Code" style="width: 100%; max-width: 300px; height: auto; display: block; margin: 0 auto;">
+                </div>
+
+                <div class="qris-apps">
+                    <div class="qris-app-item">💳 GoPay</div>
+                    <div class="qris-app-item">💳 OVO</div>
+                    <div class="qris-app-item">💳 DANA</div>
+                    <div class="qris-app-item">💳 ShopeePay</div>
+                    <div class="qris-app-item">🏦 BCA Mobile</div>
+                    <div class="qris-app-item">🏦 Mandiri</div>
+                    <div class="qris-app-item">🏦 BNI Mobile</div>
+                    <div class="qris-app-item">🏦 BRI Mobile</div>
+                </div>
+
+                <div class="payment-timer">
+                    <span class="material-symbols-outlined">schedule</span>
+                    <span>Selesaikan pembayaran dalam <strong id="timerDisplay">10:00</strong></span>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <span class="material-symbols-outlined">info</span>
+                <span>Setelah melakukan pembayaran, klik tombol Konfirmasi untuk mengirim bukti ke admin melalui WhatsApp</span>
+            </div>
+
+            <button class="btn-primary btn-full" id="confirmPaymentBtn" onclick="confirmPayment()">
+                Konfirmasi Pembayaran
+            </button>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <a href="home.html" class="nav-item">
+            <span class="material-symbols-outlined">shopping_bag</span>
+            <span>Item</span>
+        </a>
+        <a href="pembayaran.html" class="nav-item active">
+            <span class="material-symbols-outlined">receipt</span>
+            <span>Pembayaran</span>
+        </a>
+        <a href="profil.html" class="nav-item">
+            <span class="material-symbols-outlined">person</span>
+            <span>Profil</span>
+        </a>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <div class="success-modal-content">
+                <div class="success-icon">
+                    <span class="material-symbols-outlined">check_circle</span>
+                </div>
+                <h1>Pesanan Berhasil!</h1>
+                <p>Order kamu sudah dikirim ke admin</p>
+                <p>Silakan lanjutkan pembayaran melalui WhatsApp</p>
+                
+                <div class="process-info">
+                    <span class="material-symbols-outlined">schedule</span>
+                    <h3>Proses 5-10 Menit</h3>
+                    <p>Setelah pembayaran dikonfirmasi, item akan segera diproses</p>
+                </div>
+
+                <button class="btn-primary" onclick="backToHome()">Kembali ke Home</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Check login
+        const username = localStorage.getItem('roblox_username');
+        if (!username) {
+            window.location.href = 'login.html';
+        }
+
+        let paymentTimer = null;
+        let remainingSeconds = 600; // 10 minutes
+
+        function formatPrice(price) {
+            return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        }
+
+        function loadOrder() {
+            const orderData = localStorage.getItem('current_order');
+            return orderData ? JSON.parse(orderData) : null;
+        }
+
+        function loadPaymentPage() {
+            const order = loadOrder();
+            
+            if (!order) {
+                document.getElementById('emptyPayment').style.display = 'flex';
+                document.getElementById('activeOrder').style.display = 'none';
+                return;
+            }
+            
+            document.getElementById('emptyPayment').style.display = 'none';
+            document.getElementById('activeOrder').style.display = 'block';
+            
+            // Update order summary
+            document.getElementById('orderGame').textContent = order.game;
+            document.getElementById('orderItem').textContent = order.item.name + ' ' + order.item.icon;
+            document.getElementById('orderQuantity').textContent = order.quantity + 'x';
+            document.getElementById('orderPricePerItem').textContent = 'Rp ' + formatPrice(order.item.price);
+            document.getElementById('orderTotalPrice').textContent = 'Rp ' + formatPrice(order.totalPrice);
+            document.getElementById('qrisAmount').textContent = 'Rp ' + formatPrice(order.totalPrice);
+            document.getElementById('buyerUsername').textContent = order.username;
+            
+            startPaymentTimer();
+        }
+
+        function startPaymentTimer() {
+            remainingSeconds = 600;
+            
+            if (paymentTimer) {
+                clearInterval(paymentTimer);
+            }
+            
+            paymentTimer = setInterval(() => {
+                remainingSeconds--;
+                const minutes = Math.floor(remainingSeconds / 60);
+                const seconds = remainingSeconds % 60;
+                const timerDisplay = document.getElementById('timerDisplay');
+                if (timerDisplay) {
+                    timerDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                }
+                
+                if (remainingSeconds <= 0) {
+                    clearInterval(paymentTimer);
+                    alert('Waktu pembayaran habis. Silakan buat pesanan baru.');
+                    localStorage.removeItem('current_order');
+                    window.location.reload();
+                }
+            }, 1000);
+        }
+
+        function confirmPayment() {
+            const order = loadOrder();
+            if (!order) return;
+            
+            const adminNumber = '6289527435865';
+            const now = new Date();
+            const tanggal = `${now.getDate().toString().padStart(2, '0')}/${(now.getMonth() + 1).toString().padStart(2, '0')}/${now.getFullYear()}`;
+            const waktu = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')} WIB`;
+            
+            const message = `🎮 ORDER ITEM GAME 🎮
+━━━━━━━━━━━━━━━━━━━━
+📅 Tanggal: ${tanggal}
+🕐 Waktu: ${waktu}
+🎯 Game: ${order.game}
+👤 Username: ${order.username}
+🎁 Item: ${order.item.name} ${order.item.icon}
+📦 Jumlah: ${order.quantity}x
+💰 Harga per Item: Rp ${formatPrice(order.item.price)}
+💵 Total Bayar: Rp ${formatPrice(order.totalPrice)}
+💳 Pembayaran: QRIS
+━━━━━━━━━━━━━━━━━━━━
+✅ Saya sudah melakukan pembayaran via QRIS
+Mohon diproses kak 🙏
+
+*Silakan kirim bukti transfer*`;
+            
+            const url = `https://wa.me/${adminNumber}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+            
+            setTimeout(() => {
+                document.getElementById('successModal').classList.add('show');
+            }, 500);
+        }
+
+        function backToHome() {
+            localStorage.removeItem('current_order');
+            if (paymentTimer) {
+                clearInterval(paymentTimer);
+            }
+            window.location.href = 'home.html';
+        }
+
+        // Initialize
+        loadPaymentPage();
+    </script>
+</body>
+</html>

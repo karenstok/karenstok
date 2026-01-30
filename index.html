@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Up Robux - Cepat & Aman</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="loginPage" class="page active">
+        <div class="login-container">
+            <div class="login-gradient">
+                <!-- Robux Logo -->
+                <div class="robux-logo-container">
+                    <svg width="120" height="120" viewBox="0 0 120 120">
+                        <defs>
+                            <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#FFA500;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <!-- Hexagon Outer -->
+                        <path d="M 60 10 L 90 30 L 90 70 L 60 90 L 30 70 L 30 30 Z" fill="url(#goldGradient)" stroke="#FFA500" stroke-width="3"/>
+                        <!-- Hexagon Inner -->
+                        <path d="M 60 25 L 80 40 L 80 65 L 60 80 L 40 65 L 40 40 Z" fill="#fff" stroke="#FFA500" stroke-width="2"/>
+                        <!-- Center Square -->
+                        <rect x="50" y="50" width="20" height="20" rx="2" fill="url(#goldGradient)" transform="translate(-10 -10)"/>
+                    </svg>
+                </div>
+                
+                <h1 class="login-title">Top Up Robux</h1>
+                <p class="login-subtitle">Masuk dengan Username Roblox</p>
+                
+                <div class="login-card">
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label for="usernameInput">Username Roblox</label>
+                            <div class="input-with-icon">
+                                <span class="material-symbols-outlined">person</span>
+                                <input type="text" id="usernameInput" placeholder="Masukkan username kamu" required>
+                            </div>
+                        </div>
+                        
+                        <div class="info-box">
+                            <div class="info-steps">
+                                <div class="info-step">
+                                    <span class="material-symbols-outlined check-icon">check_circle</span>
+                                    <span>Pastikan username benar</span>
+                                </div>
+                                <div class="info-step">
+                                    <span class="material-symbols-outlined check-icon">check_circle</span>
+                                    <span>Tidak perlu password</span>
+                                </div>
+                                <div class="info-step">
+                                    <span class="material-symbols-outlined check-icon">check_circle</span>
+                                    <span>100% aman & terpercaya</span>
+                                </div>
+                            </div>
+                            <div class="example-text">
+                                <span>Contoh: </span>
+                                <strong>builderman</strong>, <strong>Roblox</strong>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary" id="loginBtn">
+                            <span id="loginBtnText">Masuk</span>
+                            <div class="spinner" id="loginSpinner" style="display: none;"></div>
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="security-badge">
+                    <span class="material-symbols-outlined">security</span>
+                    <span>Kami tidak pernah meminta password Roblox</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Home Page -->
+    <div id="homePage" class="page">
+        <div class="app-bar">
+            <h1>Top Up Robux</h1>
+            <div class="user-menu" id="userMenu">
+                <img id="userAvatar" src="" alt="Avatar" class="user-avatar">
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <div class="dropdown-header">
+                        <img id="dropdownAvatar" src="" alt="Avatar" class="dropdown-avatar">
+                        <div>
+                            <div class="dropdown-username" id="dropdownUsername"></div>
+                            <div class="dropdown-badge">
+                                <span class="material-symbols-outlined">verified</span>
+                                <span>Akun Roblox</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <button class="dropdown-item" onclick="showProfile()">
+                        <span class="material-symbols-outlined">person</span>
+                        <span>Profil Saya</span>
+                    </button>
+                    <button class="dropdown-item logout" onclick="handleLogout()">
+                        <span class="material-symbols-outlined">logout</span>
+                        <span>Logout</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="home-content">
+            <!-- Banner Carousel -->
+            <div class="banner-section">
+                <div class="banner-carousel" id="bannerCarousel">
+                    <!-- Banners will be generated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Welcome Card -->
+            <div class="welcome-card">
+                <div class="welcome-avatar-container">
+                    <img id="welcomeAvatar" src="" alt="Avatar" class="welcome-avatar">
+                </div>
+                <div class="welcome-text">
+                    <div class="welcome-greeting">
+                        <span>Halo, </span>
+                        <strong id="welcomeUsername"></strong>
+                        <span> 👋</span>
+                    </div>
+                    <div class="welcome-subtitle">Robux 5 Hari</div>
+                    <div class="welcome-badge">Via Game Pass, aktif setelah 5 hari</div>
+                    <div class="welcome-info">
+                        <span class="material-symbols-outlined">check_circle</span>
+                        <span>Dapat diaktifkan di <strong>Indonesia</strong></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Selection -->
+            <div class="game-selection">
+                <h3 class="section-title">Pilih Game</h3>
+                <div class="game-cards">
+                    <div class="game-card active" data-game="escape-braintrot">
+                        <div class="game-icon">🎮</div>
+                        <h4>Escape Braintrot</h4>
+                        <p>Top up untuk game Escape Braintrot</p>
+                    </div>
+                    <div class="game-card" data-game="steal-braintrot">
+                        <div class="game-icon">🕹️</div>
+                        <h4>Steal a Braintrot</h4>
+                        <p>Top up untuk game Steal a Braintrot</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="tabs">
+                <button class="tab active" data-tab="beforeTax">Before Tax</button>
+                <button class="tab" data-tab="afterTax">After Tax</button>
+            </div>
+
+            <!-- Package Grid -->
+            <div class="tab-content" id="beforeTaxContent">
+                <div class="package-grid" id="beforeTaxGrid"></div>
+            </div>
+            <div class="tab-content" id="afterTaxContent" style="display: none;">
+                <div class="package-grid" id="afterTaxGrid"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detail Page -->
+    <div id="detailPage" class="page">
+        <div class="app-bar">
+            <button class="back-btn" onclick="showPage('homePage')">
+                <span class="material-symbols-outlined">arrow_back</span>
+            </button>
+            <h1>Detail Paket</h1>
+        </div>
+        <div class="detail-content">
+            <div class="detail-icon">
+                <span class="material-symbols-outlined">monetization_on</span>
+            </div>
+            <h2 id="detailRobux"></h2>
+            <h3 id="detailPrice"></h3>
+            <span class="badge" id="detailBadge"></span>
+            
+            <div class="info-card">
+                <div class="info-row">
+                    <div class="info-label">
+                        <span class="material-symbols-outlined">payments</span>
+                        <span>Harga</span>
+                    </div>
+                    <div class="info-value" id="detailPriceValue"></div>
+                </div>
+                <div class="divider"></div>
+                <div class="info-row">
+                    <div class="info-label">
+                        <span class="material-symbols-outlined">gamepad</span>
+                        <span>Metode</span>
+                    </div>
+                    <div class="info-value">Gamepass</div>
+                </div>
+                <div class="divider"></div>
+                <div class="info-row">
+                    <div class="info-label">
+                        <span class="material-symbols-outlined">schedule</span>
+                        <span>Proses</span>
+                    </div>
+                    <div class="info-value">5-10 menit</div>
+                </div>
+            </div>
+
+            <div class="detail-section">
+                <h3>Ketentuan:</h3>
+                <ul id="detailRules" class="rules-list"></ul>
+            </div>
+
+            <button class="btn-outline" onclick="showGamepassGuide()">
+                <span class="material-symbols-outlined">help_outline</span>
+                <span>Cara Membuat Gamepass</span>
+            </button>
+        </div>
+
+        <div class="bottom-bar">
+            <button class="btn-primary" onclick="showOrderPage()">Beli Sekarang</button>
+        </div>
+    </div>
+
+    <!-- Order Page -->
+    <div id="orderPage" class="page">
+        <div class="app-bar">
+            <button class="back-btn" onclick="showPage('detailPage')">
+                <span class="material-symbols-outlined">arrow_back</span>
+            </button>
+            <h1>Form Order</h1>
+        </div>
+        <div class="order-content">
+            <div class="order-summary">
+                <h3>Ringkasan Pesanan</h3>
+                <div class="divider"></div>
+                <div class="summary-row">
+                    <span>Game</span>
+                    <strong id="orderGame"></strong>
+                </div>
+                <div class="summary-row">
+                    <span>Paket</span>
+                    <strong id="orderRobux"></strong>
+                </div>
+                <div class="summary-row">
+                    <span>Tipe</span>
+                    <span class="badge" id="orderBadge"></span>
+                </div>
+                <div class="summary-row">
+                    <span>Total Harga</span>
+                    <strong class="price" id="orderPrice"></strong>
+                </div>
+            </div>
+
+            <h3 class="section-title">Data Pembeli</h3>
+            
+            <form id="orderForm">
+                <div class="form-group">
+                    <label>Username Roblox</label>
+                    <div class="input-with-icon">
+                        <span class="material-symbols-outlined">person</span>
+                        <input type="text" id="orderUsername" readonly>
+                        <span class="material-symbols-outlined check-icon">check_circle</span>
+                    </div>
+                </div>
+                
+                <div class="info-box success">
+                    <span class="material-symbols-outlined">info</span>
+                    <span>Username otomatis terisi dari akun yang login</span>
+                </div>
+
+                <div class="form-group">
+                    <label>Link Gamepass</label>
+                    <div class="input-with-icon">
+                        <span class="material-symbols-outlined">link</span>
+                        <input type="url" id="gamepassInput" placeholder="https://www.roblox.com/..." required>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <span class="material-symbols-outlined">info</span>
+                    <span>Pastikan data yang kamu masukkan sudah benar. Kami tidak bertanggung jawab atas kesalahan input data.</span>
+                </div>
+            </form>
+        </div>
+
+        <div class="bottom-bar">
+            <button class="btn-primary" onclick="submitOrder()">Lanjut ke Pembayaran</button>
+        </div>
+    </div>
+
+    <!-- Payment Page -->
+    <div id="paymentPage" class="page">
+        <div class="app-bar">
+            <button class="back-btn" onclick="showPage('orderPage')">
+                <span class="material-symbols-outlined">arrow_back</span>
+            </button>
+            <h1>Pembayaran</h1>
+        </div>
+        <div class="payment-content">
+            <div class="payment-summary">
+                <h3>Detail Pembayaran</h3>
+                <div class="divider"></div>
+                <div class="summary-row">
+                    <span>Game</span>
+                    <strong id="paymentGame"></strong>
+                </div>
+                <div class="summary-row">
+                    <span>Username</span>
+                    <strong id="paymentUsername"></strong>
+                </div>
+                <div class="summary-row">
+                    <span>Paket</span>
+                    <strong id="paymentRobux"></strong>
+                </div>
+                <div class="summary-row">
+                    <span>Harga Paket</span>
+                    <strong id="paymentPrice"></strong>
+                </div>
+                <div class="summary-row">
+                    <span>Kode Unik</span>
+                    <strong class="code" id="paymentCode"></strong>
+                </div>
+                <div class="divider"></div>
+                <div class="summary-row total">
+                    <strong>Total Pembayaran</strong>
+                    <strong class="price" id="paymentTotal"></strong>
+                </div>
+            </div>
+
+            <div id="paymentMethods">
+                <!-- Payment methods will be generated by JavaScript -->
+            </div>
+
+            <div id="paymentDetails" class="payment-details" style="display: none;">
+                <!-- Payment details will be shown when a method is selected -->
+            </div>
+
+            <div class="info-box">
+                <span class="material-symbols-outlined">info</span>
+                <span>Pilih metode pembayaran untuk melihat detail rekening/nomor. Setelah transfer, klik konfirmasi untuk mengirim bukti ke admin.</span>
+            </div>
+        </div>
+
+        <div class="bottom-bar">
+            <button class="btn-primary" id="confirmPaymentBtn" onclick="confirmPayment()" disabled>
+                Pilih Metode Pembayaran
+            </button>
+        </div>
+    </div>
+
+    <!-- Success Page -->
+    <div id="successPage" class="page">
+        <div class="success-container">
+            <div class="success-icon">
+                <span class="material-symbols-outlined">check_circle</span>
+            </div>
+            <h1>Pesanan Berhasil!</h1>
+            <p>Order kamu sudah dikirim ke admin</p>
+            <p>Silakan lanjutkan pembayaran melalui WhatsApp</p>
+            
+            <div class="process-info">
+                <span class="material-symbols-outlined">schedule</span>
+                <h3>Proses 5-10 Menit</h3>
+                <p>Setelah pembayaran dikonfirmasi, robux akan segera diproses oleh admin</p>
+            </div>
+
+            <button class="btn-primary" onclick="backToHome()">Kembali ke Home</button>
+        </div>
+    </div>
+
+    <!-- Profile Page -->
+    <div id="profilePage" class="page">
+        <div class="app-bar">
+            <button class="back-btn" onclick="showPage('homePage')">
+                <span class="material-symbols-outlined">arrow_back</span>
+            </button>
+            <h1>Profil Saya</h1>
+            <button class="refresh-btn" onclick="refreshAvatar()">
+                <span class="material-symbols-outlined">refresh</span>
+            </button>
+        </div>
+        <div class="profile-content">
+            <div class="profile-avatar-container">
+                <img id="profileAvatar" src="" alt="Avatar" class="profile-avatar">
+            </div>
+            <h2 id="profileUsername"></h2>
+            <div class="profile-badge">
+                <span class="material-symbols-outlined">verified</span>
+                <span>Akun Roblox</span>
+            </div>
+            <div class="profile-id" id="profileId"></div>
+
+            <div class="profile-menu">
+                <button class="profile-menu-item" onclick="showAbout()">
+                    <div class="menu-icon">
+                        <span class="material-symbols-outlined">info</span>
+                    </div>
+                    <div class="menu-text">
+                        <div class="menu-title">Tentang Aplikasi</div>
+                        <div class="menu-subtitle">Versi 1.0.0</div>
+                    </div>
+                    <span class="material-symbols-outlined">chevron_right</span>
+                </button>
+            </div>
+
+            <button class="btn-logout" onclick="handleLogout()">
+                <span class="material-symbols-outlined">logout</span>
+                <span>Logout</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle"></h2>
+                <button class="modal-close" onclick="closeModal()">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
+            <div class="modal-footer" id="modalFooter"></div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
